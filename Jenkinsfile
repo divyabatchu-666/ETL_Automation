@@ -2,15 +2,20 @@ pipeline {
     agent any
 
     stages {
+
         stage('Install Dependencies') {
             steps {
-                bat 'pip install -r requirements.txt'
+                bat '''
+                C:\\Users\\divya\\PycharmProjects\\ETL_Automation\\.venv\\Scripts\\pip.exe install -r requirements.txt
+                '''
             }
         }
 
         stage('Run ETL Tests') {
             steps {
-                bat 'pytest -s'
+                bat '''
+                C:\\Users\\divya\\PycharmProjects\\ETL_Automation\\.venv\\Scripts\\pytest.exe -s tests/test_select_from_emp.py
+                '''
             }
         }
     }
