@@ -5,17 +5,17 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat '''
-                C:\\Users\\divya\\PycharmProjects\\ETL_Automation\\.venv\\Scripts\\pip.exe install -r requirements.txt
-                '''
+                bat """
+                C:\\Users\\divya\\PycharmProjects\\ETL_Automation\\.venv\\Scripts\\python.exe -m pip install -r requirements.txt
+                """
             }
         }
 
         stage('Run ETL Tests') {
             steps {
-                bat '''
-                C:\\Users\\divya\\PycharmProjects\\ETL_Automation\\.venv\\Scripts\\pytest.exe -s tests/test_select_from_emp.py
-                '''
+                bat """
+                C:\\Users\\divya\\PycharmProjects\\ETL_Automation\\.venv\\Scripts\\python.exe -m pytest -s tests/test_select_from_emp.py
+                """
             }
         }
     }
