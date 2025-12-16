@@ -25,12 +25,20 @@ def test_select_from_customer():
 
     # Employee1 data validation details
     cur.execute("""SELECT e.empno, e.ename, e.job, e.sal, e.deptno, d.dname, d.loc
-        FROM emp e
-        JOIN dept d ON e.deptno = d.deptno
-        WHERE d.deptno = 20""")
+        FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE d.deptno = 20""")
     a5 = cur.fetchall()
     columns = [col[0] for col in cur.description]
     df3 = pd.DataFrame(a5, columns=columns)
+
+    # Employee & their dept data validation details
+    cur.execute("""SELECT e.empno, e.ename, e.job, e.sal, e.deptno, d.dname, d.loc
+                   FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE d.deptno = 30
+                   minus
+                   SELECT e.empno, e.ename, e.job, e.sal, e.deptno, d.dname, d.loc
+                   FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE d.deptno = 30""")
+    a6 = cur.fetchall()
+    columns = [col[0] for col in cur.description]
+    df4 = pd.DataFrame(a6, columns=columns)
 
     # Output
     if a1> 0: # a2 output displays in integer itself so not need to define it in len()
@@ -59,5 +67,10 @@ def test_select_from_customer():
         print("\nEmployee & his dept details:\n", df3.to_string(index=False))
     else:
         print("\nEmployee & his dept details:", "No data exist in EMP1 table")
+
+    if len(a6) > 0:  # table data displays in list, tuple ,dictionary so we need to dine it as len()
+        print("\ncommon Employee & his dept details in 20 & 30:\n", df4.to_string(index=False))
+    else:
+        print("\ncommon Employee & his dept details in 20 & 30:", "data matched")
 
     conn.close()
