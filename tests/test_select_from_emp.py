@@ -23,6 +23,12 @@ def test_select_from_customer():
     columns = [col[0] for col in cur.description]
     df2 = pd.DataFrame(a4, columns=columns)
 
+    # Employee1 data validation details
+    cur.execute("select * from emp1")
+    a5 = cur.fetchall()
+    columns = [col[0] for col in cur.description]
+    df2 = pd.DataFrame(a5, columns=columns)
+
     # Output
     if a1> 0: # a2 output displays in integer itself so not need to define it in len()
         print("\nEmployee count in EMP table:", a1)
@@ -45,5 +51,10 @@ def test_select_from_customer():
         print("\nEmployee details under EMP table:\n", df2.to_string(index=False))
     else:
         print("\nEmployee details under EMP table:", "No data exist in EMP table")
+
+    if len(a5) > 0:  # table data displays in list, tuple ,dictionary so we need to dine it as len()
+        print("\nEmployee details under EMP1 table:\n", df3.to_string(index=False))
+    else:
+        print("\nEmployee details under EMP1 table:", "No data exist in EMP1 table")
 
     conn.close()
