@@ -10,7 +10,7 @@ def test_select_from_customer():
     a1 = cur.fetchone()[0]
 
     # Employees in dept 30
-    cur.execute("select count(*) from emp where deptno = 30")
+    cur.execute("select count(*) from emp where deptno = 50")
     a2 = cur.fetchone()[0]
 
     # Invalid departments check
@@ -33,7 +33,7 @@ def test_select_from_customer():
     if a2>0: # a2 output displays in integer itself so not need to define it in len()
         print("\nEmployee count under deptno=30:", a2)
     else:
-        print("\nEmployee count under deptno=30:", "No employee exist under deptno =30")
+        print("\nEmployee count under deptno=50:", "No data exist")
 
     if len(a3)>0: # table data displays in list, tuple ,dictionary so we need to dine it as len()
         print("\nEmployee count under each department:", a3)
